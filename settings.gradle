@@ -1,0 +1,12 @@
+pluginManagement {
+    plugins {
+        id 'io.freefair.lombok' version "$lombokVersion"
+        id 'io.spring.dependency-management' version "$dependencyManagementVersion"
+        id 'org.springframework.boot' version "$springBootVersion"
+    }
+}
+
+include 'muffin-wallet-api'
+include 'muffin-wallet-server'
+include 'muffin-wallet-data'
+include 'muffin-wallet-data-api'
