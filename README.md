@@ -18,8 +18,8 @@ entity muffin_transaction {
     * id: uuid
     --
     * amount: bigdecimal
-    * from: varchar(40) <<FK>>
-    * to: varchar(40) <<FK>>
+    * from: uuid <<FK>>
+    * to: uuid <<FK>>
     * created_at: datetime
 }
 
