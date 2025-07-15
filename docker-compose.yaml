@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=muffin-wallet
+      - POSTGRES_PASSWORD=muffin-wallet
+      - POSTGRES_DB=muffin_wallet

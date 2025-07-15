@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
+    implementation project(':muffin-wallet-data-api')
+    implementation project(':muffin-wallet-data')
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'

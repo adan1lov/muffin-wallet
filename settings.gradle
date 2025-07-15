@@ -7,6 +7,6 @@ pluginManagement {
 }
 
 include 'muffin-wallet-api'
-include 'muffin-wallet-server'
 include 'muffin-wallet-data'
 include 'muffin-wallet-data-api'
+include 'muffin-wallet-server'
