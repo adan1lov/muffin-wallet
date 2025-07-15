@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':muffin-wallet-data-api')
+    implementation 'org.postgresql:postgresql'
+    implementation 'org.liquibase:liquibase-core'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+}
