@@ -12,8 +12,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
-*.war
 *.nar
 *.ear
 *.zip
@@ -31,4 +29,4 @@ replay_pid*
 
 # Ignore Gradle build output directory
 build
-*/build
+**/build
