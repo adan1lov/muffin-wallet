@@ -1,8 +1,8 @@
 package ru.hse.muffin.wallet.data.api;
 
-import ru.hse.muffin.wallet.data.api.dto.MaffinTransaction;
+import ru.hse.muffin.wallet.data.api.dto.MuffinTransaction;
 
 public interface MuffinTransactionRepository {
 
-  MaffinTransaction save(MaffinTransaction transaction);
+  MuffinTransaction save(MuffinTransaction transaction);
 }
