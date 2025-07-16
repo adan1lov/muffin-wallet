@@ -8,7 +8,7 @@
 entity muffin_wallet {
     * id: uuid
     --
-    * amount: bigdecimal
+    * balance: bigdecimal
     * owner: varchar(40)
     * created_at: datetime
     * updated_at: datetime
@@ -18,8 +18,8 @@ entity muffin_transaction {
     * id: uuid
     --
     * amount: bigdecimal
-    * from: uuid <<FK>>
-    * to: uuid <<FK>>
+    * from_account: uuid <<FK>>
+    * to_account: uuid <<FK>>
     * created_at: datetime
 }
 
