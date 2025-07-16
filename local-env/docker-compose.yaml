@@ -7,3 +7,5 @@ services:
       - POSTGRES_USER=muffin-wallet
       - POSTGRES_PASSWORD=muffin-wallet
       - POSTGRES_DB=muffin_wallet
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
