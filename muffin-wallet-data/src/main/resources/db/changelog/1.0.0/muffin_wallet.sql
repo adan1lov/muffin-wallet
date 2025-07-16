@@ -1,1 +1,8 @@
 --liquibase formatted sql
+CREATE TABLE IF NOT EXISTS muffin_wallet (
+    id UUID PRIMARY KEY,
+    amount MONEY NOT NULL,
+    owner VARCHAR(40) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
