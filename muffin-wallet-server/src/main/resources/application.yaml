@@ -4,3 +4,11 @@ management:
     web:
       exposure:
         include: health, prometheus
+
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - name: muffin-wallet-api-v1
+        url: /openapi/muffin-wallet-api-v1.yaml

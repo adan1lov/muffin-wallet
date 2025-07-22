@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+    id 'org.openapi.generator'
+}
+
+dependencies {
+    api 'org.springframework:spring-web'
+    api 'org.springframework:spring-context'
+    api 'org.springframework.data:spring-data-commons'
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'jakarta.validation:jakarta.validation-api'
+    api 'jakarta.annotation:jakarta.annotation-api'
+    api 'jakarta.servlet:jakarta.servlet-api'
+}
+
+openApiGenerate {
+    generatorName = 'spring'
+    outputDir = "$buildDir/generated"
+    inputSpec = "$projectDir/src/main/resources/static/openapi/muffin-wallet-api-v1.yaml"
+    modelPackage = 'ru.hse.muffin.wallet.api.dto'
+    apiPackage = 'ru.hse.muffin.wallet.api'
+    configOptions = [
+        interfaceOnly: 'true',
+        useSpringBoot3: 'true',
+        useTags: 'true',
+        skipDefaultInterface: 'true',
+        openApiNullable: 'false',
+        documentationProvider: 'none',
+        useResponseEntity: 'false'
+    ]
+}
+
+compileJava {
+    dependsOn(tasks.openApiGenerate)
+}
+
+sourceSets {
+    getByName("main") {
+        java {
+            srcDir "$buildDir/generated/src/main/java"
+        }
+    }
+}
