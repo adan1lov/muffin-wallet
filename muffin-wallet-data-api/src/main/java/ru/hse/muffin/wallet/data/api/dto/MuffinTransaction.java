@@ -12,9 +12,9 @@ public class MuffinTransaction {
 
   private BigDecimal amount;
 
-  private UUID fromAccount;
+  private UUID fromMuffinWalletId;
 
-  private UUID toAccount;
+  private UUID toMuffinWalletId;
 
   private LocalDateTime createdAt;
 }

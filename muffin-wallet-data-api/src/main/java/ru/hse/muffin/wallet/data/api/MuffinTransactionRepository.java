@@ -9,7 +9,7 @@ public interface MuffinTransactionRepository {
 
   MuffinTransaction findById(UUID id);
 
-  MuffinTransaction findByFromAccount(UUID FromAccountId);
+  MuffinTransaction findByFromMuffinWalletId(UUID fromMuffinWalletId);
 
-  MuffinTransaction findByToAccount(UUID toAccountId);
+  MuffinTransaction findByToMuffinWalletId(UUID toMuffinWalletId);
 }
