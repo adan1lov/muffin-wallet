@@ -1,8 +1,17 @@
 package ru.hse.muffin.wallet.data.api;
 
-import ru.hse.muffin.wallet.data.api.dto.MaffinWallet;
+import java.util.List;
+import java.util.UUID;
+
+import ru.hse.muffin.wallet.data.api.dto.MuffinWallet;
 
 public interface MuffinWalletRepository {
 
-  MaffinWallet save(MaffinWallet wallet);
+  MuffinWallet save(MuffinWallet wallet);
+
+  MuffinWallet findById(UUID id);
+
+  List<MuffinWallet> findByOwnerName(String ownerName);
+
+  MuffinWallet update(MuffinWallet wallet);
 }

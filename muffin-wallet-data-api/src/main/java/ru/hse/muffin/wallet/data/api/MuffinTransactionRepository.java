@@ -1,8 +1,15 @@
 package ru.hse.muffin.wallet.data.api;
 
-import ru.hse.muffin.wallet.data.api.dto.MaffinTransaction;
+import java.util.UUID;
+import ru.hse.muffin.wallet.data.api.dto.MuffinTransaction;
 
 public interface MuffinTransactionRepository {
 
-  MaffinTransaction save(MaffinTransaction transaction);
+  MuffinTransaction save(MuffinTransaction transaction);
+
+  MuffinTransaction findById(UUID id);
+
+  MuffinTransaction findByFromMuffinWalletId(UUID fromMuffinWalletId);
+
+  MuffinTransaction findByToMuffinWalletId(UUID toMuffinWalletId);
 }

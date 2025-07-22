@@ -1,20 +1,20 @@
 package ru.hse.muffin.wallet.data.api.dto;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class MaffinTransaction {
-  
+public class MuffinTransaction {
+
   private UUID id;
 
   private BigDecimal amount;
 
-  private UUID fromAccount;
+  private UUID fromMuffinWalletId;
 
-  private UUID toAccount;
+  private UUID toMuffinWalletId;
 
   private LocalDateTime createdAt;
 }
