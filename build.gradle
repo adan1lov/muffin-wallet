@@ -4,6 +4,7 @@ plugins {
     id 'io.freefair.lombok' apply false
     id 'io.spring.dependency-management' apply false
     id 'org.springframework.boot' apply false
+    id 'org.openapi.generator' apply false
 }
 
 subprojects {
@@ -14,6 +15,10 @@ subprojects {
     dependencyManagement {
         imports {
             mavenBom(SpringBootPlugin.BOM_COORDINATES)
+        }
+
+        dependencies{
+            dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
         }
     }
 

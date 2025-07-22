@@ -3,6 +3,7 @@ pluginManagement {
         id 'io.freefair.lombok' version "$lombokVersion"
         id 'io.spring.dependency-management' version "$dependencyManagementVersion"
         id 'org.springframework.boot' version "$springBootVersion"
+        id 'org.openapi.generator' version "$openApiGeneratorVersion"
     }
 }
 
