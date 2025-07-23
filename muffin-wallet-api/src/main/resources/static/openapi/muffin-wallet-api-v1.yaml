@@ -39,15 +39,18 @@ paths:
           in: query
           schema:
             type: string
-      x-spring-provide-args:
-        - 'org.springframework.data.domain.Pageable pageable'
+        - in: query 
+          name: pageable
+          required: false
+          schema:
+            $ref: '#/components/schemas/Pageable'
       responses:
         '200':
           description: Muffin wallets page
           content:
             application/json:
               schema:
-                type: string
+                $ref: '#/components/schemas/PagedModelMuffinWallet'
   /v1/muffin-wallet/{id}:
     get:
       tags:
@@ -66,7 +69,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/MuffinWallet"
-  /v1/muffin-wallet/{id}/transfer:
+  /v1/muffin-wallet/{id}/transaction:
     post:
       tags:
         - Muffin wallet
@@ -82,19 +85,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TransferMuffinTo"
+              $ref: "#/components/schemas/TransactionMuffinTo"
       responses:
         '200':
-          description: Transfer muffin
+          description: Transaction muffin
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransferMuffin"
+                $ref: "#/components/schemas/TransactionMuffin"
               
     
 components:
   schemas:
-    TransferMuffin:
+    TransactionMuffin:
       properties:
         id:
           type: string
@@ -111,7 +114,7 @@ components:
         updated_at:
           type: string
           format: date-time        
-    TransferMuffinTo:
+    TransactionMuffinTo:
       properties:
         to_muffin_wallet_id:
           type: string
@@ -139,3 +142,13 @@ components:
         updated_at:
           type: string
           format: date-time
+    PagedModelMuffinWallet:
+      type: object
+    Pageable:   
+      description: minimal Pageable query parameters
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
