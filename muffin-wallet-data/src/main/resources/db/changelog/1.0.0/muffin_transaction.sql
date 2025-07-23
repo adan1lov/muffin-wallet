@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS muffin_transaction (
     amount DECIMAL,
     from_muffin_wallet_id UUID REFERENCES muffin_wallet(id) NOT NULL,
     to_muffin_wallet_id UUID REFERENCES muffin_wallet(id) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 --rollback drop table maffin_transaction;

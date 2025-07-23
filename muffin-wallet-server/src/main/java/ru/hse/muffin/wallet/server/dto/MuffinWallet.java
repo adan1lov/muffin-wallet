@@ -1,4 +1,4 @@
-package ru.hse.muffin.wallet.data.api.dto;
+package ru.hse.muffin.wallet.server.dto;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -6,15 +6,15 @@ import java.util.UUID;
 import lombok.Data;
 
 @Data
-public class MuffinTransaction {
+public class MuffinWallet {
 
   private UUID id;
 
-  private BigDecimal amount;
+  private BigDecimal balance;
 
-  private UUID fromMuffinWalletId;
-
-  private UUID toMuffinWalletId;
+  private String ownerName;
 
   private OffsetDateTime createdAt;
+
+  private OffsetDateTime updatedAt;
 }
