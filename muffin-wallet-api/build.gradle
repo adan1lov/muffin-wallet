@@ -26,7 +26,14 @@ openApiGenerate {
         skipDefaultInterface: 'true',
         openApiNullable: 'false',
         documentationProvider: 'none',
-        useResponseEntity: 'false'
+        useResponseEntity: 'false',
+        useSpringDataPageable: 'true'
+    ]
+    schemaMappings = [
+        'PagedModelMuffinWallet': 'org.springframework.data.web.PagedModel<MuffinWallet>'
+    ]
+    importMappings = [
+        'Pageable': 'org.springframework.data.domain.Pageable'
     ]
 }
 
