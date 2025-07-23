@@ -1,7 +1,7 @@
 package ru.hse.muffin.wallet.data.api.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.Data;
 
@@ -14,7 +14,7 @@ public class MuffinWallet {
 
   private String ownerName;
 
-  private LocalDateTime createdAt;
+  private OffsetDateTime createdAt;
 
-  private LocalDateTime updatedAt;
+  private OffsetDateTime updatedAt;
 }

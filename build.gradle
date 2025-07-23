@@ -18,6 +18,8 @@ subprojects {
         }
 
         dependencies{
+            dependency "org.mapstruct:mapstruct:$mapstructVersion"
+            dependency "org.mapstruct:mapstruct-processor:$mapstructVersion"
             dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion"
         }
     }
