@@ -1,10 +1,8 @@
 package ru.hse.muffin.wallet.server.controller;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,25 +24,32 @@ public class MuffinWalletController implements MuffinWalletApi {
 
   @Override
   public MuffinWallet v1MuffinWalletIdGet(UUID id) {
-    return new MuffinWallet();
+    return muffinWalletMapper.serviceDtoToMuffinWalletApiDto(
+      muffinWalletService.getMuffinWallet(id)
+    );
   }
 
   @Override
   public TransactionMuffin v1MuffinWalletIdTransactionPost(
       UUID id, @Valid TransactionMuffinTo transactionMuffinTo) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'v1MuffinWalletsGet'");
+    return muffinWalletMapper.serviceDtoToMuffinTransactionApiDto(
+      muffinWalletService.createMuffinTransaction(muffinWalletMapper.apiDtoToMuffinTransactionServiceDto(id, transactionMuffinTo))
+    );
   }
 
   @Override
   public PagedModel<MuffinWallet> v1MuffinWalletsGet(String ownerName, Pageable pageable) {
-    return new PagedModel<MuffinWallet>(new PageImpl<MuffinWallet>(List.of(new MuffinWallet())));
+    var muffinWallets = 
+    muffinWalletService.getMuffinWalletsByOwner(ownerName, pageable)
+    .map(muffinWalletMapper::serviceDtoToMuffinWalletApiDto);
+
+    return new PagedModel<MuffinWallet>(muffinWallets);
   }
 
   @Override
   public MuffinWallet v1MuffinWalletsPost(@Valid CreateMuffinWallet createMuffinWallet) {
     return muffinWalletMapper.serviceDtoToMuffinWalletApiDto(
-        muffinWalletService.createMuffinWallet(
-            muffinWalletMapper.apiDtoToMuffinWalletServiceDto(createMuffinWallet)));
+      muffinWalletService.createMuffinWallet(
+        muffinWalletMapper.apiCreateDtoToMuffinWalletServiceDto(createMuffinWallet)));
   }
 }
