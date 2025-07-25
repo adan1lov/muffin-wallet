@@ -4,6 +4,7 @@ pluginManagement {
         id 'io.spring.dependency-management' version "$dependencyManagementVersion"
         id 'org.springframework.boot' version "$springBootVersion"
         id 'org.openapi.generator' version "$openApiGeneratorVersion"
+        id 'com.google.cloud.tools.jib' version "$jibVersion"
     }
 }
 

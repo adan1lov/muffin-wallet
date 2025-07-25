@@ -5,6 +5,7 @@ plugins {
     id 'io.spring.dependency-management' apply false
     id 'org.springframework.boot' apply false
     id 'org.openapi.generator' apply false
+    id 'com.google.cloud.tools.jib' apply false
 }
 
 subprojects {
