@@ -1,10 +1,15 @@
 package ru.hse.muffin.wallet.data.repository;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -48,17 +53,59 @@ public class DefaultMuffinWalletRepository implements MuffinWalletRepository {
         "select * from muffin_wallet where id = :id", Map.of("id", id), ROW_MAPPER);
   }
 
+  @Override
+  public List<MuffinWallet> findByIdInForUpdate(List<UUID> ids) {
+    return namedParameterJdbcTemplate.query(
+        "select * from muffin_wallet where id in (:ids) for update",
+        Map.of("ids", ids),
+        ROW_MAPPER);
+  }
+
   /*
    * так как имена владельцев у двух разных кошельков могут совпадать (например
    * в случае полных тезок, ну или один человек владеет несколькими кошельками)
    * то возвращаем все кошельки с таким именем
    */
   @Override
-  public List<MuffinWallet> findByOwnerName(String ownerName) {
-    return namedParameterJdbcTemplate.query(
-        "select * from muffin_wallet where owner_name = :owner_name",
-        Map.of("owner_name", ownerName),
+  public Page<MuffinWallet> findByOwnerNameLike(String ownerName, Pageable pageable) {
+    var wallets = namedParameterJdbcTemplate.query(
+        """
+          select * from muffin_wallet 
+          where owner_name like :owner_name
+          limit :limit offset :offset;
+        """,
+        Map.of("owner_name", "%" + ownerName + "%", "limit", pageable.getPageSize(), "offset", pageable.getOffset()),
         ROW_MAPPER);
+
+    var walletsCount = namedParameterJdbcTemplate.queryForObject(
+        """
+          select count(*) from muffin_wallet 
+          where owner_name like :owner_name;
+        """,
+        Map.of("owner_name", "%" + ownerName + "%"),
+        Integer.class);
+
+    return new PageImpl<MuffinWallet>(wallets, pageable, walletsCount);
+  }
+
+  @Override
+  public Page<MuffinWallet> findAll(Pageable pageable) {
+    var wallets = namedParameterJdbcTemplate.query(
+        """
+          select * from muffin_wallet 
+          limit :limit offset :offset;
+        """,
+        Map.of("limit", pageable.getPageSize(), "offset", pageable.getOffset()),
+        ROW_MAPPER);
+
+    var walletsCount = namedParameterJdbcTemplate.queryForObject(
+        """
+          select count(*) from muffin_wallet;
+        """,
+        Collections.emptyMap(),
+        Integer.class);
+
+    return new PageImpl<MuffinWallet>(wallets, pageable, walletsCount);
   }
 
   @Override
@@ -66,7 +113,8 @@ public class DefaultMuffinWalletRepository implements MuffinWalletRepository {
     return namedParameterJdbcTemplate.queryForObject(
         """
         update muffin_wallet
-        set balance = :balance, owner_name = :owner_name
+        set balance = :balance, owner_name = :owner_name,
+        updated_at = now()
         where id = :id
         returning *;
         """,

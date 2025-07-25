@@ -111,7 +111,7 @@ components:
         amount:
           type: number
           format: decimal
-        updated_at:
+        created_at:
           type: string
           format: date-time        
     TransactionMuffinTo:
@@ -144,6 +144,22 @@ components:
           format: date-time
     PagedModelMuffinWallet:
       type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/MuffinWallet"
+        page:
+          type: object
+          properties:
+            size:
+              type: integer
+            number:
+              type: integer
+            totalElements:  
+              type: integer
+            totalPages:
+              type: integer
     Pageable:   
       description: minimal Pageable query parameters
       type: object

@@ -32,15 +32,14 @@ public class DefaultMuffinTransactionRepository implements MuffinTransactionRepo
   public MuffinTransaction save(MuffinTransaction transaction) {
     return namedParameterJdbcTemplate.queryForObject(
         """
-        insert into muffin_transaction (id, amount, from_muffin_wallet_id, to_muffin_wallet_id, created_at)
-        values (uuid_generate_v4(), :amount, :from_muffin_wallet_id, :to_muffin_wallet_id, :created_at)
+        insert into muffin_transaction (id, amount, from_muffin_wallet_id, to_muffin_wallet_id)
+        values (uuid_generate_v4(), :amount, :from_muffin_wallet_id, :to_muffin_wallet_id)
         returning *;
         """,
         Map.of(
             "amount", transaction.getAmount(),
             "from_muffin_wallet_id", transaction.getFromMuffinWalletId(),
-            "to_muffin_wallet_id", transaction.getToMuffinWalletId(),
-            "created_at", transaction.getCreatedAt()),
+            "to_muffin_wallet_id", transaction.getToMuffinWalletId()),
         ROW_MAPPER);
   }
 
