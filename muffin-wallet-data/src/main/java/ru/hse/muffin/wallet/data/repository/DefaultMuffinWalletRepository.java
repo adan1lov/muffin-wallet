@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -68,42 +67,52 @@ public class DefaultMuffinWalletRepository implements MuffinWalletRepository {
    */
   @Override
   public Page<MuffinWallet> findByOwnerNameLike(String ownerName, Pageable pageable) {
-    var wallets = namedParameterJdbcTemplate.query(
-        """
-          select * from muffin_wallet 
-          where owner_name like :owner_name
-          limit :limit offset :offset;
-        """,
-        Map.of("owner_name", "%" + ownerName + "%", "limit", pageable.getPageSize(), "offset", pageable.getOffset()),
-        ROW_MAPPER);
+    var wallets =
+        namedParameterJdbcTemplate.query(
+            """
+              select * from muffin_wallet
+              where owner_name like :owner_name
+              limit :limit offset :offset;
+            """,
+            Map.of(
+                "owner_name",
+                "%" + ownerName + "%",
+                "limit",
+                pageable.getPageSize(),
+                "offset",
+                pageable.getOffset()),
+            ROW_MAPPER);
 
-    var walletsCount = namedParameterJdbcTemplate.queryForObject(
-        """
-          select count(*) from muffin_wallet 
-          where owner_name like :owner_name;
-        """,
-        Map.of("owner_name", "%" + ownerName + "%"),
-        Integer.class);
+    var walletsCount =
+        namedParameterJdbcTemplate.queryForObject(
+            """
+              select count(*) from muffin_wallet
+              where owner_name like :owner_name;
+            """,
+            Map.of("owner_name", "%" + ownerName + "%"),
+            Integer.class);
 
     return new PageImpl<MuffinWallet>(wallets, pageable, walletsCount);
   }
 
   @Override
   public Page<MuffinWallet> findAll(Pageable pageable) {
-    var wallets = namedParameterJdbcTemplate.query(
-        """
-          select * from muffin_wallet 
-          limit :limit offset :offset;
-        """,
-        Map.of("limit", pageable.getPageSize(), "offset", pageable.getOffset()),
-        ROW_MAPPER);
+    var wallets =
+        namedParameterJdbcTemplate.query(
+            """
+              select * from muffin_wallet
+              limit :limit offset :offset;
+            """,
+            Map.of("limit", pageable.getPageSize(), "offset", pageable.getOffset()),
+            ROW_MAPPER);
 
-    var walletsCount = namedParameterJdbcTemplate.queryForObject(
-        """
-          select count(*) from muffin_wallet;
-        """,
-        Collections.emptyMap(),
-        Integer.class);
+    var walletsCount =
+        namedParameterJdbcTemplate.queryForObject(
+            """
+              select count(*) from muffin_wallet;
+            """,
+            Collections.emptyMap(),
+            Integer.class);
 
     return new PageImpl<MuffinWallet>(wallets, pageable, walletsCount);
   }

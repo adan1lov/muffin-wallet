@@ -1,12 +1,10 @@
 package ru.hse.muffin.wallet.server.service;
 
-import ru.hse.muffin.wallet.server.dto.MuffinWallet;
-import ru.hse.muffin.wallet.server.dto.MuffinTransaction;
-
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ru.hse.muffin.wallet.server.dto.MuffinTransaction;
+import ru.hse.muffin.wallet.server.dto.MuffinWallet;
 
 public interface MuffinWalletService {
 

@@ -25,23 +25,23 @@ public class MuffinWalletController implements MuffinWalletApi {
   @Override
   public MuffinWallet v1MuffinWalletIdGet(UUID id) {
     return muffinWalletMapper.serviceDtoToMuffinWalletApiDto(
-      muffinWalletService.getMuffinWallet(id)
-    );
+        muffinWalletService.getMuffinWallet(id));
   }
 
   @Override
   public TransactionMuffin v1MuffinWalletIdTransactionPost(
       UUID id, @Valid TransactionMuffinTo transactionMuffinTo) {
     return muffinWalletMapper.serviceDtoToMuffinTransactionApiDto(
-      muffinWalletService.createMuffinTransaction(muffinWalletMapper.apiDtoToMuffinTransactionServiceDto(id, transactionMuffinTo))
-    );
+        muffinWalletService.createMuffinTransaction(
+            muffinWalletMapper.apiDtoToMuffinTransactionServiceDto(id, transactionMuffinTo)));
   }
 
   @Override
   public PagedModel<MuffinWallet> v1MuffinWalletsGet(String ownerName, Pageable pageable) {
-    var muffinWallets = 
-    muffinWalletService.getMuffinWalletsByOwner(ownerName, pageable)
-    .map(muffinWalletMapper::serviceDtoToMuffinWalletApiDto);
+    var muffinWallets =
+        muffinWalletService
+            .getMuffinWalletsByOwner(ownerName, pageable)
+            .map(muffinWalletMapper::serviceDtoToMuffinWalletApiDto);
 
     return new PagedModel<MuffinWallet>(muffinWallets);
   }
@@ -49,7 +49,7 @@ public class MuffinWalletController implements MuffinWalletApi {
   @Override
   public MuffinWallet v1MuffinWalletsPost(@Valid CreateMuffinWallet createMuffinWallet) {
     return muffinWalletMapper.serviceDtoToMuffinWalletApiDto(
-      muffinWalletService.createMuffinWallet(
-        muffinWalletMapper.apiCreateDtoToMuffinWalletServiceDto(createMuffinWallet)));
+        muffinWalletService.createMuffinWallet(
+            muffinWalletMapper.apiCreateDtoToMuffinWalletServiceDto(createMuffinWallet)));
   }
 }
