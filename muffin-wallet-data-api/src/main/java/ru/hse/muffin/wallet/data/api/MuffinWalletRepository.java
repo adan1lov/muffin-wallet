@@ -2,10 +2,8 @@ package ru.hse.muffin.wallet.data.api;
 
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import ru.hse.muffin.wallet.data.api.dto.MuffinWallet;
 
 public interface MuffinWalletRepository {
