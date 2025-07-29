@@ -1,0 +1,22 @@
+@startuml E/R
+
+entity muffin_wallet {
+    * id: uuid
+    --
+    * balance: bigdecimal
+    * owner_name: varchar(40)
+    * created_at: datetime
+    * updated_at: datetime
+}
+
+entity muffin_transaction {
+    * id: uuid
+    --
+    * amount: bigdecimal
+    * from_muffin_wallet_id: uuid <<FK>>
+    * to_muffin_wallet_id: uuid <<FK>>
+    * created_at: datetime
+}
+
+muffin_transaction }|..|| muffin_wallet
+@enduml
