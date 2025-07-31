@@ -20,7 +20,7 @@ public class MockMvcStepDefinition {
   private final ObjectMapper objectMapper;
 
   @Then("get muffin wallet by id {uuid} returnes data:")
-  public void getMuffinWalletByIdReturnesData(UUID id, Map<String, String> data) throws Exception {
+  public void getMuffinWalletByIdReturnsData(UUID id, Map<String, String> data) throws Exception {
 
     var result =
         mockMvc
@@ -34,8 +34,8 @@ public class MockMvcStepDefinition {
     assertEquals(data.get("owner_name"), muffinWallet.get("owner_name").asText());
 
     var expectedBalance = new BigDecimal(data.get("balance"));
-    
-    var actualBalance = new BigDecimal(muffinWallet.get("balance").asDouble());
+
+    var actualBalance = new BigDecimal(muffinWallet.get("balance").asText());
 
     assertEquals(expectedBalance, actualBalance);
   }
