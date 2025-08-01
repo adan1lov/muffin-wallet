@@ -6,7 +6,7 @@ Feature: Muffin wallet single request tests
       | id         | c2d46009-9f29-4613-8d03-36badd85f7c2 |
       | owner_name | alexey                               |
       | balance    | 100                                  |
-    Then get muffin wallet by id c2d46009-9f29-4613-8d03-36badd85f7c2 returnes data:
+    Then get muffin wallet by id c2d46009-9f29-4613-8d03-36badd85f7c2 returns data:
       | id         | c2d46009-9f29-4613-8d03-36badd85f7c2 |
       | owner_name | alexey                               |
       | balance    | 100                                  |

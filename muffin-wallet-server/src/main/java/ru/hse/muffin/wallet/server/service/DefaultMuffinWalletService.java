@@ -1,5 +1,6 @@
 package ru.hse.muffin.wallet.server.service;
 
+
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import ru.hse.muffin.wallet.data.api.MuffinTransactionRepository;
 import ru.hse.muffin.wallet.data.api.MuffinWalletRepository;
 import ru.hse.muffin.wallet.server.dto.MuffinTransaction;
 import ru.hse.muffin.wallet.server.dto.MuffinWallet;
+import ru.hse.muffin.wallet.server.exception.MuffinWalletNotFoundException;
 import ru.hse.muffin.wallet.server.mapper.MuffinWalletMapper;
 
 @Service
@@ -25,7 +27,8 @@ public class DefaultMuffinWalletService implements MuffinWalletService {
 
   @Override
   public MuffinWallet getMuffinWallet(UUID id) {
-    return muffinWalletMapper.dataDtoToMuffinWalletServiceDto(muffinWalletRepository.findById(id));
+    return muffinWalletMapper.dataDtoToMuffinWalletServiceDto(
+        muffinWalletRepository.findById(id).orElseThrow(MuffinWalletNotFoundException::new));
   }
 
   @Override
@@ -64,12 +67,18 @@ public class DefaultMuffinWalletService implements MuffinWalletService {
         List.of(
             muffinTransaction.getFromMuffinWalletId(), muffinTransaction.getToMuffinWalletId()));
 
-    var fromWallet = muffinWalletRepository.findById(muffinTransaction.getFromMuffinWalletId());
+    var fromWallet =
+        muffinWalletRepository
+            .findById(muffinTransaction.getFromMuffinWalletId())
+            .orElseThrow(MuffinWalletNotFoundException::new);
 
     fromWallet.setBalance(fromWallet.getBalance().subtract(muffinTransaction.getAmount()));
     muffinWalletRepository.update(fromWallet);
 
-    var toWallet = muffinWalletRepository.findById(muffinTransaction.getToMuffinWalletId());
+    var toWallet =
+        muffinWalletRepository
+            .findById(muffinTransaction.getToMuffinWalletId())
+            .orElseThrow(MuffinWalletNotFoundException::new);
 
     toWallet.setBalance(toWallet.getBalance().add(muffinTransaction.getAmount()));
     muffinWalletRepository.update(toWallet);
