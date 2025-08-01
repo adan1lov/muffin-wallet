@@ -1,6 +1,7 @@
 package ru.hse.muffin.wallet.data.api;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +11,7 @@ public interface MuffinWalletRepository {
 
   MuffinWallet save(MuffinWallet wallet);
 
-  MuffinWallet findById(UUID id);
+  Optional<MuffinWallet> findById(UUID id);
 
   List<MuffinWallet> findByIdInForUpdate(List<UUID> ids);
 

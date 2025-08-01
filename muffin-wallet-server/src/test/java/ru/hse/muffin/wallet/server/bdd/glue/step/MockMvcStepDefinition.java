@@ -19,7 +19,7 @@ public class MockMvcStepDefinition {
 
   private final ObjectMapper objectMapper;
 
-  @Then("get muffin wallet by id {uuid} returnes data:")
+  @Then("get muffin wallet by id {uuid} returns data:")
   public void getMuffinWalletByIdReturnsData(UUID id, Map<String, String> data) throws Exception {
 
     var result =

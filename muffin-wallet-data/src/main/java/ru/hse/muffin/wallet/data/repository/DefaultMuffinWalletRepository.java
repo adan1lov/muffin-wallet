@@ -1,10 +1,7 @@
 package ru.hse.muffin.wallet.data.repository;
 
 import java.time.OffsetDateTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -49,9 +46,16 @@ public class DefaultMuffinWalletRepository implements MuffinWalletRepository {
   }
 
   @Override
-  public MuffinWallet findById(UUID id) {
-    return namedParameterJdbcTemplate.queryForObject(
-        "select * from muffin_wallet where id = :id", Map.of("id", id), ROW_MAPPER);
+  public Optional<MuffinWallet> findById(UUID id) {
+    var foundedWallets =
+        namedParameterJdbcTemplate.query(
+            "select * from muffin_wallet where id = :id", Map.of("id", id), ROW_MAPPER);
+
+    if (foundedWallets.isEmpty()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(foundedWallets.getFirst());
   }
 
   @Override
