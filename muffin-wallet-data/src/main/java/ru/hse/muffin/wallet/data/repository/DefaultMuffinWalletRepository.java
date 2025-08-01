@@ -36,13 +36,15 @@ public class DefaultMuffinWalletRepository implements MuffinWalletRepository {
 
   @Override
   public MuffinWallet save(MuffinWallet wallet) {
+    var id = wallet.getId() == null ? UUID.randomUUID() : wallet.getId();
+
     return namedParameterJdbcTemplate.queryForObject(
         """
         insert into muffin_wallet (id, balance, owner_name)
-        values (uuid_generate_v4(), :balance, :owner_name)
+        values (:id, :balance, :owner_name)
         returning *;
         """,
-        Map.of("balance", wallet.getBalance(), "owner_name", wallet.getOwnerName()),
+        Map.of("id", id, "balance", wallet.getBalance(), "owner_name", wallet.getOwnerName()),
         ROW_MAPPER);
   }
 

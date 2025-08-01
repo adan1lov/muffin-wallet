@@ -43,7 +43,7 @@ public class MuffinWalletController implements MuffinWalletApi {
             .getMuffinWalletsByOwner(ownerName, pageable)
             .map(muffinWalletMapper::serviceDtoToMuffinWalletApiDto);
 
-    return new PagedModel<MuffinWallet>(muffinWallets);
+    return new PagedModel<>(muffinWallets);
   }
 
   @Override
