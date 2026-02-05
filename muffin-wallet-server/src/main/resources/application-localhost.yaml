@@ -19,11 +19,6 @@ currency:
 
 logging.file.name: logs/app.log
 management:
-  tracing:
-    sampling:
-      probability: 1.0 # Sample 100% of traces for demo
-  zipkin:
-    endpoint: "http://localhost:9411/api/v2/spans" # Zipkin's v2 API
   endpoints:
     web:
       exposure:

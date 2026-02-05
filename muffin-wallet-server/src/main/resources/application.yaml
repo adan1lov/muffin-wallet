@@ -1,12 +1,34 @@
 ---
 server:
   port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/muffin_wallet
+    username: muffin-wallet
+    password: muffin-wallet
+
+logging:
+  pattern:
+    level: "%5p [%X{traceId:-},%X{spanId:-}]"
+
+currency:
+  service:
+    url: http://localhost:8080/rate
+
+logging.file.name: logs/app.log
 management:
   endpoints:
     web:
       exposure:
-        include: health, prometheus
+        include: '*'
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
 
+management.metrics.distribution.percentiles-histogram.http.server.requests: true
 
 springdoc:
   swagger-ui:
